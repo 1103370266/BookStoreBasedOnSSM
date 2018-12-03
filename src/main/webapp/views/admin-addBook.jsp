@@ -5,7 +5,7 @@
   Time: 11:00
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <!doctype html>
 <html class="no-js">
 <head>
@@ -98,11 +98,11 @@
                   <img class="am-img-circle am-img-thumbnail" src="<%=basePath%>/views/assets/i/book.png" alt=""/>
                 </div>
                 <div class="am-u-md-8">
-                  <form class="am-form">
+                  <form class="am-form" action="/book/addBook" method="post" enctype="multipart/form-data">
                     <div class="am-form-group">
-                      <input type="file" id="user-pic">
+                      <input type="file" id="user-pic" name="pictureFile">
                       <p class="am-form-help">请选择要上传的图片文件...</p>
-                      <button type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>
+                      <input type="submit" value="提交" class="am-btn am-btn-primary am-btn-xs">
                     </div>
                   </form>
                 </div>
