@@ -30,6 +30,8 @@
 
   <script src="<%=basePath%>/views/assets/js/jquery.min.js"></script>
   <script src="<%=basePath%>/views/assets/js/amazeui.js"></script>
+  <script src="<%=basePath%>/views/assets/js/handlebars.min.js"></script>
+  <script src="<%=basePath%>/views/assets/js/amazeui.widgets.helper.js"></script>
 
   <style>
 
@@ -49,7 +51,7 @@
           <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+          <li><a href="/Admin/outLogin"><span class="am-icon-power-off"></span> 退出</a></li>
         </ul>
       </li>
     </ul>
@@ -94,74 +96,87 @@
           <div class="am-panel am-panel-default">
             <div class="am-panel-bd">
               <div class="am-g">
-                <div class="am-u-md-4">
-                  <img class="am-img-circle am-img-thumbnail" src="<%=basePath%>/views/assets/i/book.png" alt=""/>
-                </div>
-                <div class="am-u-md-8">
-                  <form class="am-form" action="/book/addBook" method="post" enctype="multipart/form-data">
-                    <div class="am-form-group">
-                      <input type="file" id="user-pic" name="pictureFile">
-                      <p class="am-form-help">请选择要上传的图片文件...</p>
-                      <input type="submit" value="提交" class="am-btn am-btn-primary am-btn-xs">
-                    </div>
-                  </form>
+                <div class="am-u-md-12">
+                  <img class="am-img-circle am-img-thumbnail" src="<%=basePath%>/views/assets/i/wordLogo.png" alt=""/>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
-          <form class="am-form am-form-horizontal">
+          <form class="am-form am-form-horizontal" action="/Book/admin/addBook" method="post" enctype="multipart/form-data">
             <div class="am-form-group">
-              <label for="user-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
+              <label for="book-name" class="am-u-sm-3 am-form-label">书名 / Name</label>
               <div class="am-u-sm-9">
-                <input type="text" id="user-name" placeholder="姓名 / Name">
-                <small>输入你的名字，让我们记住你。</small>
+                <input type="text" id="book-name" placeholder="书名 / bookName">
+                <small>请输入书名</small>
               </div>
             </div>
 
             <div class="am-form-group">
-              <label for="user-email" class="am-u-sm-3 am-form-label">电子邮件 / Email</label>
+              <label for="book-type" class="am-u-sm-3 am-form-label">图书类别 / Type</label>
               <div class="am-u-sm-9">
-                <input type="email" id="user-email" placeholder="输入你的电子邮件 / Email">
-                <small>邮箱你懂得...</small>
+                <input type="text" id="book-type" placeholder="输入图书类别 / Type">
+                <small>图书种类</small>
               </div>
             </div>
 
             <div class="am-form-group">
-              <label for="user-phone" class="am-u-sm-3 am-form-label">电话 / Telephone</label>
+              <label for="book-author" class="am-u-sm-3 am-form-label">图书作者 / Author</label>
               <div class="am-u-sm-9">
-                <input type="tel" id="user-phone" placeholder="输入你的电话号码 / Telephone">
+                <input type="text" id="book-author" placeholder="输入图书作者 / Author">
+                <small>这本书出自哪位大家之手</small>
               </div>
             </div>
 
             <div class="am-form-group">
-              <label for="user-QQ" class="am-u-sm-3 am-form-label">QQ</label>
+              <label for="book-press" class="am-u-sm-3 am-form-label">出版社 / Press</label>
               <div class="am-u-sm-9">
-                <input type="number" pattern="[0-9]*" id="user-QQ" placeholder="输入你的QQ号码">
+                <input type="text" id="book-press" placeholder="输入图书出版社">
               </div>
             </div>
 
             <div class="am-form-group">
-              <label for="user-weibo" class="am-u-sm-3 am-form-label">微博 / Twitter</label>
+              <label for="book-price" class="am-u-sm-3 am-form-label">图书价格 / Price</label>
               <div class="am-u-sm-9">
-                <input type="text" id="user-weibo" placeholder="输入你的微博 / Twitter">
+                <input type="number" pattern="[0-9]*" id="book-price" placeholder="输入图书价格 / Price">
               </div>
             </div>
 
             <div class="am-form-group">
-              <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
+              <label for="book-inventory" class="am-u-sm-3 am-form-label">图书库存 / Inventory</label>
               <div class="am-u-sm-9">
-                <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介"></textarea>
-                <small>250字以内写出你的一生...</small>
+                <input type="number" pattern="[0-9]*" id="book-inventory" placeholder="输入图书库存 / Inventory">
               </div>
             </div>
 
             <div class="am-form-group">
+              <label for="book-intro" class="am-u-sm-3 am-form-label">图书简介 / Intro</label>
+              <div class="am-u-sm-9">
+                <textarea class="" rows="5" id="book-intro" placeholder="输入图书简介"></textarea>
+                <small>250字以内写出图书简介...</small>
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <label for="book-img" class="am-u-sm-3 am-form-label">图书封面 / Image</label>
+              <div class="am-u-sm-9">
+                <div class="am-g">
+                  <div class="am-u-sm-4 am-u-md-3 am-u-lg-2">
+                    <img class="am-img-circle am-img-thumbnail" src="<%=basePath%>/views/assets/i/book.png" alt=""/>
+                  </div>
+                  <div class="am-u-sm-8 am-u-md-9 am-u-lg-10">
+                    <input type="file" id="book-img" name="pictureFile">
+                    <small>请选择要上传的图片文件...</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="am-form-group am-center">
               <div class="am-u-sm-9 am-u-sm-push-3">
-                <button type="button" class="am-btn am-btn-primary">保存修改</button>
+                <button type="submit" class="am-btn am-btn-primary">提交</button>
               </div>
             </div>
           </form>

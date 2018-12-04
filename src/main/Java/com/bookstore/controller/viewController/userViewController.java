@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/userPage")
 public class userViewController {
 
     @Autowired

@@ -105,7 +105,7 @@
         console.log(jason_str);
 
         $.ajax({
-            url :"http://localhost:8080/admin/checkLogin",
+            url :"http://localhost:8080/Admin/checkLogin",
             cache : true,
             type : "post",
             datatype : "json",
@@ -119,7 +119,7 @@
                     if (data.isManager == true)
                         window.location.href = "/adminPage/";
                     else
-                        window.location.href = "/user/";
+                        window.location.href = "/userPage/";
                 } else{
                     alert(data.message);
                 }
@@ -148,7 +148,7 @@
         console.log(jason_str);
 
         $.ajax({
-            url :"http://localhost:8080/admin/register",
+            url :"http://localhost:8080/Admin/register",
             cache : true,
             type : "post",
             datatype : "json",

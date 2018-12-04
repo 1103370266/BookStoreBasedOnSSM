@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/Admin")
 public class AdminController {
     @Autowired
     AdminService adminService;
@@ -79,4 +79,11 @@ public class AdminController {
         return ResponseMap;//返回给前端的数据
     }
 
+    //注销功能
+    @RequestMapping("/outLogin")
+    public String outLogin(HttpSession session){
+        //通过session.invalidata()方法来注销当前的session
+        session.invalidate();
+        return "login";
+    }
 }

@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/shoppingCart")
+@RequestMapping("/ShoppingCart")
 public class ShoppingCartController {
     @Autowired
     ShoppingCartService shoppingCartService;

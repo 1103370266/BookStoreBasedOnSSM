@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/book")
+@RequestMapping("/Book")
 public class BookController {
     @Autowired
     BookService BookService;
@@ -52,7 +52,7 @@ public class BookController {
         return ResponseMap;//返回给前端的数据
     }
 
-    @RequestMapping(value = "/addBook")
+    @RequestMapping(value = "/admin/addBook")
     public String addBook(HttpServletRequest request ,MultipartFile pictureFile) throws Exception{
 
         //使用UUID给图片重命名，并去掉四个“-”
@@ -65,6 +65,7 @@ public class BookController {
         //以绝对路径保存重名命后的图片
         pictureFile.transferTo(new File(url+"/"+name + "." + ext));
         //把图片存储路径保存到数据库
+        String dataPath = "/views/assets/i/upload/" + name + "." + ext;
 
         //重定向到查询所有用户的Controller，测试图片回显
         return "redirect:/adminPage/addBook";
