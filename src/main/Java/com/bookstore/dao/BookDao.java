@@ -9,4 +9,7 @@ public interface BookDao {
 
     List<Book> getBooksByType(String bookType);
 
+    void addABook(Book book);
+
+    List<Book> getAllBooks();
 }

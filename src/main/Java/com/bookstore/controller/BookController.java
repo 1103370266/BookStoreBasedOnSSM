@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,22 +54,39 @@ public class BookController {
     }
 
     @RequestMapping(value = "/admin/addBook")
-    public String addBook(HttpServletRequest request ,MultipartFile pictureFile) throws Exception{
+    @ResponseBody
+    public ModelAndView addBook(HttpServletRequest request, Book book , MultipartFile pictureFile) throws Exception{
+        ModelAndView responseMap = new ModelAndView();
 
-        //使用UUID给图片重命名，并去掉四个“-”
-        String name = UUID.randomUUID().toString().replaceAll("-", "");
-        //获取文件的扩展名
-        String ext = FilenameUtils.getExtension(pictureFile.getOriginalFilename());
-        //设置图片上传路径
-        String url = request.getSession().getServletContext().getRealPath("/views/assets/i/upload");
-        System.out.println(url);
-        //以绝对路径保存重名命后的图片
-        pictureFile.transferTo(new File(url+"/"+name + "." + ext));
-        //把图片存储路径保存到数据库
-        String dataPath = "/views/assets/i/upload/" + name + "." + ext;
+        if (book!=null || pictureFile != null) {
+            //使用UUID给图片重命名，并去掉四个“-”
+            String name = UUID.randomUUID().toString().replaceAll("-", "");
+            //获取文件的扩展名
+            String ext = FilenameUtils.getExtension(pictureFile.getOriginalFilename());
+            //设置图片上传路径
+            String url = request.getSession().getServletContext().getRealPath("/views/assets/i/upload");
+            System.out.println(url);
+            //以绝对路径保存重名命后的图片
+            pictureFile.transferTo(new File(url + "/" + name + "." + ext));
+            //保存到数据库的图片路径
+            String dataPath = "/views/assets/i/upload/" + name + "." + ext;
 
-        //重定向到查询所有用户的Controller，测试图片回显
-        return "redirect:/adminPage/addBook";
+            book.setImage(dataPath);
+
+            try {
+                BookService.addABook(book);
+                responseMap.addObject("message","添加成功");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                responseMap.addObject("message","添加时出错,请检查数据格式");
+            }
+        }else {
+            responseMap.addObject("message","添加失败，请检查数据是否为空");
+        }
+
+        responseMap.setViewName("admin-addBook");
+
+        return responseMap;
     }
 
 }

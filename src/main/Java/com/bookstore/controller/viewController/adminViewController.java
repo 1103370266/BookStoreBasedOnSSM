@@ -28,15 +28,15 @@ public class adminViewController {
     public ModelAndView getMainPage(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
-        List<Book> books = bookService.getBooksByType("文学");
+        List<Book> books = bookService.getAllBooks();
 
-        mv.addObject("book",books.get(0));
+        mv.addObject("books",books);
         mv.setViewName("admin-index");
         return mv;
     }
 
     @RequestMapping(
-            value="/getAllPrders",
+            value="/getAllOrders",
             method = RequestMethod.GET,
             produces = "application/json;charset=UTF-8"
     )

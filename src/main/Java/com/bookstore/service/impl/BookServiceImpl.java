@@ -19,5 +19,15 @@ public class BookServiceImpl implements BookService{
         return  bookList;
     }
 
+    @Override
+    public void addABook(Book book){
+        BookDao.addABook(book);
+        return;
+    }
+
+    @Override
+    public List<Book> getAllBooks(){
+        return BookDao.getAllBooks();
+    }
 
 }
