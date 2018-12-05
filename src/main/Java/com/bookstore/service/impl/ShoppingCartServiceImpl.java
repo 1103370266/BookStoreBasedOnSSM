@@ -7,6 +7,9 @@ import com.bookstore.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+
 @Service//注解
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired//自动装配
@@ -18,16 +21,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public boolean addBookToShoppingCart(int id,int bookId,String bookName,int bookNum){
+    public void addBookToShoppingCart(int id,int bookId,String bookName,int bookNum){
+
         shoppingCartDao.addBookToShoppingCart(id, bookId, bookName, bookNum);
-        ShoppingCart shoppingCart=shoppingCartDao.selectBook(bookId);
-        if(shoppingCart==null)
-        {
-            return false;
-        } else
-        {
-            return  true;
-        }
+    }
+
+    @Override
+    public List<ShoppingCart> showShoppingCartById(int id) {
+        List<ShoppingCart> shoppingCartList=shoppingCartDao.showShoppingCartById(id);
+        return shoppingCartList;
+    }
+
+    @Override
+    public void deleteBookFromShoppingCart(int id,int cardId){
+
+        shoppingCartDao.deleteBookFromShoppingCart(id,cardId);
+
     }
 
 }

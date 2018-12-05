@@ -7,6 +7,10 @@ import java.util.List;
 public interface BookService {
 
     List<Book> getBooksByType(String bookType);
+    List<String> getBooksType();
     void addABook(Book book);
     List<Book> getAllBooks();
+    Book getOneBook(int bookId);
+    void deleteBookByBookId(int bookId);
+
 }

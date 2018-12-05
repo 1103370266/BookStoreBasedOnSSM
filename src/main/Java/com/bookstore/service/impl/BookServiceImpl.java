@@ -11,14 +11,19 @@ import java.util.List;
 @Service//注解
 public class BookServiceImpl implements BookService{
     @Autowired//自动装配
-    BookDao BookDao;
+            BookDao BookDao;
 
     @Override
     public  List<Book> getBooksByType(String bookType){
         List<Book> bookList=BookDao.getBooksByType(bookType);
         return  bookList;
     }
-
+    //获取书的类型
+    @Override
+    public List<String> getBooksType(){
+        List<String> bookTypeList=BookDao.getBooksType();
+        return bookTypeList;
+    }
     @Override
     public void addABook(Book book){
         BookDao.addABook(book);
@@ -28,6 +33,16 @@ public class BookServiceImpl implements BookService{
     @Override
     public List<Book> getAllBooks(){
         return BookDao.getAllBooks();
+    }
+    @Override
+    public  Book getOneBook(int bookId){
+       Book book=BookDao.getOneBook(bookId);
+        return  book;
+    }
+
+    @Override
+    public void deleteBookByBookId(int bookId){
+        BookDao.deleteBooKByBookId(bookId);
     }
 
 }

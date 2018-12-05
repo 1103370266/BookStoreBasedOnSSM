@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html class="no-js">
 <head>
@@ -67,7 +68,13 @@
           <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
             图书分类 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
           <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
-            <li><a href="<%=basePath%>adminPage/"><span class="am-icon-th"></span> 图书类别一</a></li>
+
+            <c:if test="${types != null}">
+              <c:forEach var="type" items="${types}">
+                <li><a href="<%=basePath%>adminPage/getBookByType?bookType=${type}"><span class="am-icon-th"></span> ${type} </a></li>
+              </c:forEach>
+            </c:if>
+
           </ul>
         </li>
         <li><a href="<%=basePath%>adminPage/getAllOrders"><span class="am-icon-table"></span> 查看订单</a></li>
@@ -90,32 +97,6 @@
             <hr>
       
             <div class="am-g">
-              <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
-                    <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </div>
-              <div class="am-u-sm-12 am-u-md-6">
-                <div class="am-form-group">
-                  <select data-am-selected="{btnSize: 'sm'}">
-                    <option value="option1">所有类别</option>
-                    <option value="option2">IT业界</option>
-                    <option value="option3">数码产品</option>
-                    <option value="option3">笔记本电脑</option>
-                    <option value="option3">平板电脑</option>
-                    <option value="option3">只能手机</option>
-                    <option value="option3">超极本</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-      
-            <div class="am-g">
               <div class="am-u-sm-12">
                 <form class="am-form">
                   <table class="am-table am-table-striped am-table-hover table-main">
@@ -125,6 +106,7 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <tr>
                       <td>1</td>
                       <td><a href="#">Business management</a></td>
@@ -135,117 +117,24 @@
                         <div class="am-btn-toolbar">
                           <div class="am-btn-group am-btn-group-xs">
                             <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
                             <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
                           </div>
                         </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><a href="#">Business management</a></td>
-                      <td>default</td>
-                      <td class="am-hide-sm-only">测试1号</td>
-                      <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                      <td>
-                        <div class="am-btn-toolbar">
-                          <div class="am-btn-group am-btn-group-xs">
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td><a href="#">Business management</a></td>
-                      <td>default</td>
-                      <td class="am-hide-sm-only">测试1号</td>
-                      <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                      <td>
-                        <div class="am-btn-toolbar">
-                          <div class="am-btn-group am-btn-group-xs">
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td><a href="#">Business management</a></td>
-                      <td>default</td>
-                      <td class="am-hide-sm-only">测试1号</td>
-                      <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                      <td>
-                        <div class="am-btn-toolbar">
-                          <div class="am-btn-group am-btn-group-xs">
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td><a href="#">Business management</a></td>
-                      <td>default</td>
-                      <td class="am-hide-sm-only">测试1号</td>
-                      <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                      <td>
-                        <div class="am-btn-toolbar">
-                          <div class="am-btn-group am-btn-group-xs">
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td><a href="#">Business management</a></td>
-                      <td>default</td>
-                      <td class="am-hide-sm-only">测试1号</td>
-                      <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                      <td>
-                        <div class="am-btn-toolbar">
-                          <div class="am-btn-group am-btn-group-xs">
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
+
                     </tbody>
                   </table>
-                  <div class="am-cf">
-                    共 15 条记录
-                    <div class="am-fr">
-                      <ul class="am-pagination">
-                        <li class="am-disabled"><a href="#">«</a></li>
-                        <li class="am-active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                      </ul>
-                    </div>
-                  </div>
                 </form>
               </div>
       
             </div>
           </div>
-      
-          <footer class="admin-content-footer">
+
+          <footer class="admin-content-footer" style="text-align: center">
             <hr>
-            <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+            <h3>by 计算机161班</h3>
+            <p>肖枢贤 简斌兵 陈俊卿 石立军 黄宁</p>
           </footer>
         </div>
         <!-- content end -->

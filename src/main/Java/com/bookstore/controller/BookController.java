@@ -89,4 +89,102 @@ public class BookController {
         return responseMap;
     }
 
+    //获取书籍种类
+    @RequestMapping(value = "/getBooksType", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody//响应体  用于向前端返回数据
+    public Map<String,Object> getBooksType(@RequestBody Map<String,Object> map, HttpServletRequest request){
+
+        Map<String,Object> ResponseMap = new HashMap<>();
+        try {
+            List<String> bookTypeList=BookService.getBooksType();
+            if(bookTypeList.isEmpty()){
+                ResponseMap.put("state",false);
+                ResponseMap.put("message","书籍类型为空");
+                ResponseMap.put("data",bookTypeList);
+            }else{
+                ResponseMap.put("state",true);
+                ResponseMap.put("message","查询成功。");
+                ResponseMap.put("data",bookTypeList);
+            }
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+        }
+        return ResponseMap;//返回给前端的数据
+    }
+
+    //获取所有书籍
+    @RequestMapping(value = "/getAllBooks", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody//响应体  用于向前端返回数据
+    public Map<String,Object> getAllBooks(@RequestBody Map<String,Object> map, HttpServletRequest request){
+
+        Map<String,Object> ResponseMap = new HashMap<>();
+        try {
+            List<Book> bookList=BookService.getAllBooks();
+            if(!bookList.isEmpty()){
+                ResponseMap.put("state",true);
+                ResponseMap.put("message","查询成功。");
+                ResponseMap.put("data",bookList);
+            }else{
+                ResponseMap.put("state",false);
+                ResponseMap.put("message","当前数据库没有书籍。");
+                ResponseMap.put("data",bookList);
+            }
+
+
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+
+        }
+        return ResponseMap;//返回给前端的数据
+    }
+
+    //获取一本书籍
+    @RequestMapping(value = "/getOneBook", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody//响应体  用于向前端返回数据
+    public Map<String,Object> getOneBook(@RequestBody Map<String,Object> map, HttpServletRequest request){
+
+        Map<String,Object> ResponseMap = new HashMap<>();
+        try {
+            Book book=BookService.getOneBook(Integer.valueOf("" + map.get("bookId")));
+            if(book==null){
+                ResponseMap.put("state",false);
+                ResponseMap.put("message","当前数据库没有书籍。");
+                ResponseMap.put("data",book);
+            }else{
+                ResponseMap.put("state",true);
+                ResponseMap.put("message","查询成功。");
+                ResponseMap.put("data",book);
+            }
+
+
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+
+        }
+        return ResponseMap;//返回给前端的数据
+    }
+
+    //根据id删除图书
+    @RequestMapping(value = "/deleteBookById",
+            method = RequestMethod.POST,
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Map<String,Object> deleteBookById(@RequestBody Map<String,Object> map){
+        Map<String,Object> ResponseMap = new HashMap<>();
+        int bookId = Integer.parseInt(map.get("bookId").toString());
+        try {
+            BookService.deleteBookByBookId(bookId);
+            ResponseMap.put("state",true);
+            ResponseMap.put("message","删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            ResponseMap.put("state",false);
+            ResponseMap.put("message","删除失败");
+        }
+        return ResponseMap;
+    }
+
 }

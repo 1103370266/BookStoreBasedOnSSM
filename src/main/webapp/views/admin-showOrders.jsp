@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html class="no-js">
 <head>
@@ -67,7 +68,13 @@
           <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
             图书分类 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
           <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
-            <li><a href="<%=basePath%>adminPage/"><span class="am-icon-th"></span> 图书类别一</a></li>
+
+            <c:if test="${types != null}">
+              <c:forEach var="type" items="${types}">
+                <li><a href="<%=basePath%>adminPage/getBookByType?bookType=${type}"><span class="am-icon-th"></span> ${type} </a></li>
+              </c:forEach>
+            </c:if>
+
           </ul>
         </li>
         <li><a href="<%=basePath%>adminPage/getAllOrders"><span class="am-icon-table"></span> 查看订单</a></li>
@@ -232,16 +239,15 @@
       
             </div>
           </div>
-      
-          <footer class="admin-content-footer">
+
+          <footer class="admin-content-footer" style="text-align: center">
             <hr>
-            <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+            <h3>by 计算机161班</h3>
+            <p>肖枢贤 简斌兵 陈俊卿 石立军 黄宁</p>
           </footer>
         </div>
         <!-- content end -->
-      
       </div>
-      
 
 </body>
 </html>

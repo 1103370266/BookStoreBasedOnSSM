@@ -8,9 +8,19 @@
         where bookId = #{bookId}
     </select>
 
+    <select id="showShoppingCartById" resultType="ShoppingCart" parameterType="int">
+        select *
+        from shoppingcart
+        where id=#{id}
+    </select>
+
     <insert id="addBookToShoppingCart">
         insert into ShoppingCart(id, bookId, bookName, bookNum)
         value(#{id},#{bookId},#{bookName},#{bookNum})
     </insert>
 
+    <delete id="deleteBookFromShoppingCart" >
+        delete from shoppingcart
+        where id=#{id} and cartId=#{cardId}
+    </delete>
 </mapper>

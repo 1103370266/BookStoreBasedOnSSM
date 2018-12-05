@@ -28,9 +28,45 @@ public class adminViewController {
     public ModelAndView getMainPage(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
-        List<Book> books = bookService.getAllBooks();
+        //获取所有图书种类
+        List<String> types = bookService.getBooksType();
+        mv.addObject("types",types);
 
+        //获取所有图书
+        List<Book> books = bookService.getAllBooks();
         mv.addObject("books",books);
+
+        //设置返回页面
+        mv.setViewName("admin-index");
+        return mv;
+    }
+
+    @RequestMapping(
+            value="/getBookByType",
+            method = RequestMethod.GET,
+            produces = "application/json;charset=UTF-8"
+    )
+    @ResponseBody
+    public ModelAndView getBookByType(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+
+        String type = "";
+        try {
+            type = new String(request.getParameter("bookType").getBytes("ISO-8859-1"), "UTF-8");
+            System.out.println(type);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        //获取该种类所有图书
+        List<Book> books = bookService.getBooksByType(type);
+        mv.addObject("books",books);
+
+        //获取所有图书种类
+        List<String> types = bookService.getBooksType();
+        mv.addObject("types",types);
+
+        //设置返回页面
         mv.setViewName("admin-index");
         return mv;
     }
@@ -44,6 +80,11 @@ public class adminViewController {
     public ModelAndView getAllPrders(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
+        //获取所有图书种类
+        List<String> types = bookService.getBooksType();
+        mv.addObject("types",types);
+
+        //设置返回页面
         mv.setViewName("admin-showOrders");
         return mv;
     }
@@ -57,6 +98,11 @@ public class adminViewController {
     public ModelAndView addBook(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
+        //获取所有图书种类
+        List<String> types = bookService.getBooksType();
+        mv.addObject("types",types);
+
+        //设置返回页面
         mv.setViewName("admin-addBook");
         return mv;
     }
@@ -70,6 +116,11 @@ public class adminViewController {
     public ModelAndView chargeUser(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
+        //获取所有图书种类
+        List<String> types = bookService.getBooksType();
+        mv.addObject("types",types);
+
+        //设置返回页面
         mv.setViewName("admin-chargeUser");
         return mv;
     }

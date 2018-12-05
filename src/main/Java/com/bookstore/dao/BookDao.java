@@ -8,8 +8,10 @@ import java.util.List;
 public interface BookDao {
 
     List<Book> getBooksByType(String bookType);
-
+    List<String> getBooksType();
     void addABook(Book book);
-
     List<Book> getAllBooks();
+    Book getOneBook(int bookId);
+    void deleteBooKByBookId(int bookId);
+
 }

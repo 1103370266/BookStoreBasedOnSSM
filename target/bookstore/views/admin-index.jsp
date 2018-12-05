@@ -68,7 +68,13 @@
               <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
                 图书分类 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
               <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
-                <li><a href="<%=basePath%>adminPage/"><span class="am-icon-th"></span> 图书类别一</a></li>
+
+                <c:if test="${types != null}">
+                  <c:forEach var="type" items="${types}">
+                    <li><a href="<%=basePath%>adminPage/getBookByType?bookType=${type}"><span class="am-icon-th"></span> ${type} </a></li>
+                  </c:forEach>
+                </c:if>
+
               </ul>
             </li>
             <li><a href="<%=basePath%>adminPage/getAllOrders"><span class="am-icon-table"></span> 查看订单</a></li>
@@ -103,17 +109,18 @@
                           <div class="gallery-desc">${book.author}</div>
                         </a>
                         <button type="button" class="am-btn am-btn-default am-btn-sm">修改库存</button>
-                        <button type="button" class="am-btn am-btn-warning am-btn-sm">删除图书</button>
+                        <button type="button" id="${book.bookId}" class="am-btn am-btn-warning am-btn-sm delete-btn">删除图书</button>
                       </li>
                     </c:forEach>
                   </c:if>
                 </ul>
 
               </div>
-          
-              <footer class="admin-content-footer">
+
+              <footer class="admin-content-footer" style="text-align: center">
                 <hr>
-                <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+                <h3>by 计算机161班</h3>
+                <p>肖枢贤 简斌兵 陈俊卿 石立军 黄宁</p>
               </footer>
           
             </div>
@@ -123,7 +130,38 @@
           
 
     <script type="text/javascript">
-        $()
+        $(".delete-btn").click(function () {
+            console.log(this.id);
+            var ID = this.id;
+
+            var json_data = {
+                "bookId": ID
+            };
+            var jason_str = JSON.stringify(json_data);
+
+            $.ajax({
+                url :"<%=basePath%>Book/deleteBookById",
+                cache : true,
+                type : "post",
+                datatype : "json",
+                contentType : "application/json; charset=utf-8",
+                data : jason_str,
+
+                success : function (data){
+                    console.log(data.state + data.message);
+                    if (data.state == true){
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error:function (data) {
+                    console.log(data);
+                    alert("请求出错，请检查网络或服务器是否开启");
+                }
+            });
+        });
     </script>
 </body>
 </html>
