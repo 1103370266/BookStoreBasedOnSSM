@@ -22,6 +22,8 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     AdminService adminService;
+
+
     //登陆验证
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody//响应体  用于向前端返回数据
@@ -57,6 +59,7 @@ public class AdminController {
         return ResponseMap;//返回给前端的数据
     }
 
+    //注册功能
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody//响应体  用于向前端返回数据
     public Map<String,Object> register(@RequestBody/*请求体。用于接收前端传来的数据*/ Map<String,Object> map, HttpServletRequest request){
@@ -92,19 +95,30 @@ public class AdminController {
             method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public Map<String,Object> deleteUserById(@RequestBody Map<String,Object> map){
-        Map<String,Object> ResponseMap = new HashMap<>();
-        int userId = Integer.parseInt(map.get("userId").toString());
-        try {
-            adminService.deleteAdminById(userId);
-            ResponseMap.put("state",true);
-            ResponseMap.put("message","删除成功");
-        }catch (Exception e){
-            e.printStackTrace();
-            ResponseMap.put("state",false);
-            ResponseMap.put("message","删除失败");
+    public Map<String,Object> deleteUserById(@RequestBody Map<String,Object> map) {
+        Map<String, Object> ResponseMap = new HashMap<>();
+
+        int userId = Integer.parseInt("" + map.get("userId"));
+        String message = "";
+
+        Admin user = adminService.getAdminById(userId);
+        if (user == null) {
+            ResponseMap.put("state", false);
+            ResponseMap.put("message", "删除失败，用户不存在");
+        } else if (user.getManager() == 0){
+            try {
+                adminService.deleteAdminById(userId);
+                ResponseMap.put("state", true);
+                ResponseMap.put("message", "删除成功");
+            } catch (Exception e) {
+                e.printStackTrace();
+                ResponseMap.put("state", false);
+                ResponseMap.put("message", "删除失败");
+            }
+        }else {
+            ResponseMap.put("state", false);
+            ResponseMap.put("message", "删除失败，你没有权限删除一名管理员");
         }
         return ResponseMap;
     }
-
 }

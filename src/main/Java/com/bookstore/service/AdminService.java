@@ -12,5 +12,5 @@ public interface AdminService {
     boolean register(String username, String password);
     Admin getAdminById(int id);
     List<Admin> getAllAdmins();
-    boolean deleteAdminById(int id);
+    void deleteAdminById(int id);
 }

@@ -120,7 +120,8 @@
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button id="${user.id}" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-btn">
+                        <span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
                 </td>
@@ -143,6 +144,40 @@
   </div>
   <!-- content end -->
   </div>
+
+<script>
+  $(".delete-btn").click(function () {
+      var userId = this.id;
+
+      var json_data = {
+          "userId": userId
+      };
+      var jason_str = JSON.stringify(json_data);
+
+      $.ajax({
+          url :"<%=basePath%>Admin/deleteUserById",
+          cache : true,
+          type : "post",
+          datatype : "json",
+          contentType : "application/json; charset=utf-8",
+          data : jason_str,
+
+          success : function (data){
+              console.log(data.state + data.message);
+              if (data.state == true){
+                  alert(data.message);
+                  location.reload();
+              } else {
+                  alert(data.message);
+              }
+          },
+          error:function (data) {
+              console.log(data);
+              alert("请求出错，请检查网络或服务器是否开启");
+          }
+      });
+  });
+</script>
 
 </body>
 </html>

@@ -54,19 +54,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean deleteAdminById(int id){
-        Admin user = adminDao.getAdminById(id);
-        if (user != null){
-            try{
-                adminDao.deleteAdminById(id);
-                return true;
-            }catch (Exception e){
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-                return false;
-            }
-        }
-        return false;
+    public void deleteAdminById(int id){
+        adminDao.deleteAdminById(id);
     }
 
 }

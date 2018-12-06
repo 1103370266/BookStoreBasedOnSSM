@@ -94,6 +94,10 @@ public class adminViewController {
     public ModelAndView getAllOrders(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
+        //获取所有订单
+        List<Orders> orders = ordersService.getAllOrders();
+        mv.addObject("orders",orders);
+
         //获取所有图书种类
         List<String> types = bookService.getBooksType();
         mv.addObject("types",types);
@@ -144,6 +148,7 @@ public class adminViewController {
             Map<String,Object> user = new HashMap<>();
             user.put("username",admin.getUsername());
             user.put("isManager",admin.getManager());
+            user.put("id",admin.getId());
             user.put("OrderCount",ordersService.getOrderCountByUserId(admin.getId()));
             users.add(user);
         }

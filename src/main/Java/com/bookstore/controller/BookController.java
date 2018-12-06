@@ -28,7 +28,7 @@ public class BookController {
     @Autowired
     BookService BookService;
 
-
+    //获取一个种类所有的图书
     @RequestMapping(value = "/getBooksByType", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody//响应体  用于向前端返回数据
     public Map<String,Object> getBooksByType(@RequestBody/*请求体。用于接收前端传来的数据*/ Map<String,Object> map, HttpServletRequest request){
@@ -53,6 +53,7 @@ public class BookController {
         return ResponseMap;//返回给前端的数据
     }
 
+    //添加一本图书
     @RequestMapping(value = "/admin/addBook")
     @ResponseBody
     public ModelAndView addBook(HttpServletRequest request, Book book , MultipartFile pictureFile) throws Exception{

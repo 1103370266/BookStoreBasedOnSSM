@@ -21,10 +21,14 @@ public class OrdersServicelmpl implements OrdersService{
 
     @Override
     public boolean addOrder(int id, int bookId, String bookName,
-                            int orderNum, String consignee, String address, String contactWay,int orderPrice) {
-        Orders orders=new Orders();
-        OrdersDao.addOrder(id,bookId,bookName,orderNum,consignee,address,contactWay,orderPrice);
-        return true;
+                            int orderNum, String consignee, String address, String contactWay,int orderPrice,String createTime) {
+        try {
+            OrdersDao.addOrder(id,bookId,bookName,orderNum,consignee,address,contactWay,orderPrice,createTime);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -32,4 +36,8 @@ public class OrdersServicelmpl implements OrdersService{
         return OrdersDao.getOrderCountByUserId(id);
     }
 
+    @Override
+    public List<Orders> getAllOrders(){
+        return OrdersDao.getAllOrders();
+    }
 }
