@@ -80,67 +80,69 @@
         <li><a href="<%=basePath%>adminPage/getAllOrders"><span class="am-icon-table"></span> 查看订单</a></li>
         <li><a href="<%=basePath%>adminPage/addBook"><span class="am-icon-pencil-square-o"></span> 添加图书</a></li>
         <li><a href="<%=basePath%>adminPage/chargeUser"><span class="am-icon-users"></span> 用户管理</a></li>
-
       </ul>
 
     </div>
   </div>
   <!-- sidebar end -->
       
-        <!-- content start -->
-        <div class="admin-content">
-          <div class="admin-content-body">
-            <div class="am-cf am-padding am-padding-bottom-0">
-              <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表格</strong> / <small>Table</small></div>
-            </div>
-      
-            <hr>
-      
-            <div class="am-g">
-              <div class="am-u-sm-12">
-                <form class="am-form">
-                  <table class="am-table am-table-striped am-table-hover table-main">
-                    <thead>
-                    <tr>
-                      <th class="table-id">ID</th><th class="table-title">标题</th><th class="table-type">类别</th><th class="table-author am-hide-sm-only">作者</th><th class="table-date am-hide-sm-only">修改日期</th><th class="table-set">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                      <td>1</td>
-                      <td><a href="#">Business management</a></td>
-                      <td>default</td>
-                      <td class="am-hide-sm-only">测试1号</td>
-                      <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                      <td>
-                        <div class="am-btn-toolbar">
-                          <div class="am-btn-group am-btn-group-xs">
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-                    </tbody>
-                  </table>
-                </form>
-              </div>
-      
-            </div>
-          </div>
-
-          <footer class="admin-content-footer" style="text-align: center">
-            <hr>
-            <h3>by 计算机161班</h3>
-            <p>肖枢贤 简斌兵 陈俊卿 石立军 黄宁</p>
-          </footer>
-        </div>
-        <!-- content end -->
-      
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表格</strong> / <small>Table</small></div>
       </div>
-      
+
+      <hr>
+
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-5 am-u-md-push-10"></div>
+        <div class="am-u-sm-12 am-u-md-7 am-u-md-pull-3">
+          <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+              <tr>
+                <th class="table-type">用户名</th>
+                <th class="table-type">是否是管理员</th>
+                <th class="table-type">下单数量</th>
+                <th class="table-set">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+
+          <%--循环显示数据--%>
+          <c:if test="${users != null}">
+            <c:forEach var="user" items="${users}">
+              <tr>
+                <td>${user.username}</td>
+                <td>${user.isManager}</td>
+                <td>${user.OrderCount}</td>
+                <td>
+                  <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </c:forEach>
+          </c:if>
+
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="admin-content-footer" style="text-align: center">
+      <hr>
+      <h3>by 计算机161班</h3>
+      <p>肖枢贤 简斌兵 陈俊卿 石立军 黄宁</p>
+    </footer>
+  </div>
+  <!-- content end -->
+  </div>
 
 </body>
 </html>

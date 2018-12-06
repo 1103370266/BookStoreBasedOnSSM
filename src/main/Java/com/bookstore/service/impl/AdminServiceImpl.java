@@ -6,6 +6,8 @@ import com.bookstore.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service//注解
 public class AdminServiceImpl implements AdminService {
@@ -44,6 +46,27 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin getAdminById(int id){
         return adminDao.getAdminById(id);
+    }
+
+    @Override
+    public List<Admin> getAllAdmins(){
+        return adminDao.getAllAdmins();
+    }
+
+    @Override
+    public boolean deleteAdminById(int id){
+        Admin user = adminDao.getAdminById(id);
+        if (user != null){
+            try{
+                adminDao.deleteAdminById(id);
+                return true;
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
     }
 
 }

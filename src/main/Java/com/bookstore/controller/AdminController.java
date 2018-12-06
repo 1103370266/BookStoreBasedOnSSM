@@ -86,4 +86,25 @@ public class AdminController {
         session.invalidate();
         return "login";
     }
+
+    //根据id删除用户
+    @RequestMapping(value = "/deleteUserById",
+            method = RequestMethod.POST,
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Map<String,Object> deleteUserById(@RequestBody Map<String,Object> map){
+        Map<String,Object> ResponseMap = new HashMap<>();
+        int userId = Integer.parseInt(map.get("userId").toString());
+        try {
+            adminService.deleteAdminById(userId);
+            ResponseMap.put("state",true);
+            ResponseMap.put("message","删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            ResponseMap.put("state",false);
+            ResponseMap.put("message","删除失败");
+        }
+        return ResponseMap;
+    }
+
 }

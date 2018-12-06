@@ -19,4 +19,14 @@
         where id = #{id}
     </select>
 
+    <select id="getAllAdmins" resultType="Admin">
+        select *
+        from admin;
+    </select>
+
+    <delete id="deleteAdminById" parameterType="int">
+        delete
+        from admin
+        where id = #{id};
+    </delete>
 </mapper>

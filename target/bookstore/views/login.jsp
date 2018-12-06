@@ -35,6 +35,10 @@
     <!--<script src="assets/js/amazeui.widgets.helper.js"></script>-->
 
     <style>
+        body {
+            background:url(<%=basePath%>views/assets/i/timg.jpg) top center no-repeat;
+            background-size:cover;
+        }
         .header {
             text-align: center;
         }
@@ -48,28 +52,31 @@
         }
     </style>
 </head>
-<body>
+<body background="<%=basePath%>views/assets/i/timg.jpg">
 <div class="header">
     <div class="am-g">
-        <h1>兰陵学馆</h1>
-        <p>君子曰：学不可以已。 -- 荀子《劝学》<br/></p>
-    </div>
-    <hr />
-</div>
+        <br>
+        <br>
 
-<div class="am-g" style="margin:5% 0 13% 0;">
+        <img src="<%=basePath%>views/assets/i/tittle-1.png" style="align-content: center;"><br> <br>
+        <img src="<%=basePath%>views/assets/i/tittle-2.PNG" style="align-content: center;">
+    </div>
+
+</div>
+<br>
+
+
+<div class="content1" style="margin:5% 0 13% 50px">
     <div class="am-u-lg-4 am-u-md-6 am-u-sm-centered">
-        <h3>登录</h3>
-        <hr>
 
         <form class="am-form">
             <label for="username">用户名:</label>
-            <input type="text" name="username" id="username" value="">
+            <input required type="text" name="username" id="username" value="">
             <br>
             <label for="password">密码:</label>
-            <input type="password" name="password" id="password" value="">
+            <input required type="password" name="password" id="password" value="">
             <br>
-            <br />
+            <br>
             <div class="am-cf">
                 <input type="button" id="login" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
                 <input type="button" id="sign" value="注 册" class="am-btn am-btn-default am-btn-sm am-fr">
@@ -80,7 +87,7 @@
 
 
 <footer class="am-with-topbar-fixed-bottom">
-    <hr/>
+
     <p class="am-text-center">
         <small>by 计算机161班</small><br>
         <small>肖枢贤 简斌兵 陈俊卿 石立军 黄宁</small>
@@ -92,78 +99,88 @@
         var username = $("#username")[0].value;
         var password = $("#password")[0].value;
 
-        console.log(username + " : " + password);
+        if (username != "" && password != "") {
 
-        var json_data = {
-            "username": username,
-            "password":password
-        };
+            console.log(username + " : " + password);
 
-        //js对象转换成JSON字符串
-        var jason_str = JSON.stringify(json_data);
+            var json_data = {
+                "username": username,
+                "password": password
+            };
 
-        console.log(jason_str);
+            //js对象转换成JSON字符串
+            var jason_str = JSON.stringify(json_data);
 
-        $.ajax({
-            url :"<%=basePath%>Admin/checkLogin",
-            cache : true,
-            type : "post",
-            datatype : "json",
-            contentType : "application/json; charset=utf-8",
-            data : jason_str,
+            console.log(jason_str);
 
-            success : function (data){
-                console.log(data.state);
+            $.ajax({
+                url: "<%=basePath%>Admin/checkLogin",
+                cache: true,
+                type: "post",
+                datatype: "json",
+                contentType: "application/json; charset=utf-8",
+                data: jason_str,
 
-                if(data.state == true){
-                    if (data.isManager == true)
-                        window.location.href = "<%=basePath%>adminPage/";
-                    else
-                        window.location.href = "<%=basePath%>userPage/";
-                } else{
-                    alert(data.message);
+                success: function (data) {
+                    console.log(data.state);
+
+                    if (data.state == true) {
+                        if (data.isManager == true)
+                            window.location.href = "<%=basePath%>adminPage/";
+                        else
+                            window.location.href = "<%=basePath%>userPage/";
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("请求出错，请检查网络或服务器是否开启");
                 }
-            },
-            error:function (data) {
-                console.log(data);
-                alert("请求出错，请检查网络或服务器是否开启");
-            }
-        });
+            });
+        }else {
+            alert("请填写正确的用户名和密码");
+        }
     });
 
     $("#sign").click(function () {
         var username = $("#username")[0].value;
         var password = $("#password")[0].value;
 
-        console.log(username + " : " + password);
 
-        var json_data = {
-            "username": username,
-            "password":password
-        };
+        if (username != "" && password != "") {
+            console.log(username + " : " + password);
 
-        //js对象转换成JSON字符串
-        var jason_str = JSON.stringify(json_data);
+            var json_data = {
+                "username": username,
+                "password": password
+            };
 
-        console.log(jason_str);
+            //js对象转换成JSON字符串
+            var jason_str = JSON.stringify(json_data);
 
-        $.ajax({
-            url :"<%=basePath%>Admin/register",
-            cache : true,
-            type : "post",
-            datatype : "json",
-            contentType : "application/json; charset=utf-8",
-            data : jason_str,
+            console.log(jason_str);
 
-            success : function (data){
-                console.log(data.state);
-                alert(data.message);
-            },
-            error:function (data) {
-                console.log(data);
-                alert("请求出错，请检查网络或服务器是否开启");
-            }
-        });
+            $.ajax({
+                url: "<%=basePath%>Admin/register",
+                cache: true,
+                type: "post",
+                datatype: "json",
+                contentType: "application/json; charset=utf-8",
+                data: jason_str,
+
+                success: function (data) {
+                    console.log(data.state);
+                    alert(data.message);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("请求出错，请检查网络或服务器是否开启");
+                }
+            });
+        }else {
+            alert("请填写正确的用户名和密码");
+        }
     });
     $("body").keydown(function() {
         if (event.keyCode == "13") {//keyCode=13是回车键

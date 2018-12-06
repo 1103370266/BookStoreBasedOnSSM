@@ -8,6 +8,5 @@ public interface OrdersService{
 
     List<Orders> showOrdersById(int Id);
     boolean addOrder(int id, int bookId,String bookName,int orderNum, String consignee, String address, String contactWay,int orderPrice);
-
-
+    int getOrderCountByUserId(int id);
 }

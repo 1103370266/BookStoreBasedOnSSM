@@ -23,7 +23,7 @@ public class LoginFilter implements Filter {
         String FinalRequestURL = requestURL.substring(Path.length());
 
         if (null == session.getAttribute("id")){
-            if(requestURL.equals("/Admin/checkLogin") || requestURL.equals("/")){
+            if(requestURL.equals("/Admin/checkLogin") || requestURL.equals("/") || requestURL.equals("/Admin/register")){
                 chain.doFilter(req, resp);
             }else {
                 System.out.println("未登录访问" + requestURL);

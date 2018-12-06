@@ -99,7 +99,7 @@
           
                 <hr>
           
-                <ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin gallery-list">
+                <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-6 am-margin gallery-list">
                   <c:if test="${books != null}">
                     <c:forEach var="book" items="${books}">
                       <li>

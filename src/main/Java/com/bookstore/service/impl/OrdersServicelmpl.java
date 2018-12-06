@@ -19,8 +19,6 @@ public class OrdersServicelmpl implements OrdersService{
         return  ordersList;
     }
 
-
-
     @Override
     public boolean addOrder(int id, int bookId, String bookName,
                             int orderNum, String consignee, String address, String contactWay,int orderPrice) {
@@ -29,6 +27,9 @@ public class OrdersServicelmpl implements OrdersService{
         return true;
     }
 
-
+    @Override
+    public int getOrderCountByUserId(int id){
+        return OrdersDao.getOrderCountByUserId(id);
+    }
 
 }

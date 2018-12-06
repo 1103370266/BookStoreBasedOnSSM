@@ -1,7 +1,11 @@
 package com.bookstore.controller.viewController;
 
+import com.bookstore.model.Admin;
 import com.bookstore.model.Book;
+import com.bookstore.model.Orders;
+import com.bookstore.service.AdminService;
 import com.bookstore.service.BookService;
+import com.bookstore.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +15,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/adminPage")
 public class adminViewController {
     @Autowired
     BookService bookService;
+    @Autowired
+    AdminService adminService;
+    @Autowired
+    OrdersService ordersService;
 
+    //主页控制
     @RequestMapping(
             value="/",
             method = RequestMethod.GET,
@@ -41,6 +53,7 @@ public class adminViewController {
         return mv;
     }
 
+    //按分类显示图书页面控制
     @RequestMapping(
             value="/getBookByType",
             method = RequestMethod.GET,
@@ -71,13 +84,14 @@ public class adminViewController {
         return mv;
     }
 
+    //查看所有订单页面控制
     @RequestMapping(
             value="/getAllOrders",
             method = RequestMethod.GET,
             produces = "application/json;charset=UTF-8"
     )
     @ResponseBody
-    public ModelAndView getAllPrders(HttpServletRequest request) {
+    public ModelAndView getAllOrders(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
         //获取所有图书种类
@@ -89,6 +103,7 @@ public class adminViewController {
         return mv;
     }
 
+    //添加图书页面控制
     @RequestMapping(
             value="/addBook",
             method = RequestMethod.GET,
@@ -107,6 +122,8 @@ public class adminViewController {
         return mv;
     }
 
+
+    //用户管理页面控制
     @RequestMapping(
             value="/chargeUser",
             method = RequestMethod.GET,
@@ -119,6 +136,18 @@ public class adminViewController {
         //获取所有图书种类
         List<String> types = bookService.getBooksType();
         mv.addObject("types",types);
+
+        //获取所有用户与其下单数量
+        List<Map<String,Object>> users = new ArrayList<>();
+        List<Admin> admins = adminService.getAllAdmins();
+        for (Admin admin : admins){
+            Map<String,Object> user = new HashMap<>();
+            user.put("username",admin.getUsername());
+            user.put("isManager",admin.getManager());
+            user.put("OrderCount",ordersService.getOrderCountByUserId(admin.getId()));
+            users.add(user);
+        }
+        mv.addObject("users",users);
 
         //设置返回页面
         mv.setViewName("admin-chargeUser");

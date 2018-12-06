@@ -14,4 +14,10 @@
         value (#{id},#{bookId},#{bookName},#{orderNum},#{consignee},#{address},#{contactWay},#{orderPrice},0)
     </insert>
 
+    <select id="getOrderCountByUserId" resultType="int" parameterType="int">
+        select COUNT(*)
+        from orders
+        where id = #{id};
+    </select>
+
 </mapper>
