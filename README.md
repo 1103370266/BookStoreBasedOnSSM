@@ -31,20 +31,20 @@
 
 ### 三、数据库设计
 
-![](.\img\img1.png)
+![](./img/img1.png)
 
 ### 四、界面预览
 
-![img2](.\img\img2.png)
+![img2](./img/img2.png)
 
-![img3](.\img\img3.png)
+![img3](./img/img3.png)
 
-![img4](.\img\img4.png)
+![img4](./img/img4.png)
 
-![img5](.\img\img5.png)
+![img5](./img/img5.png)
 
-![img7](.\img\img7.png)
+![img7](./img/img7.png)
 
-![img8](.\img\img8.png)
+![img8](./img/img8.png)
 
-![img9](.\img\img9.png)
+![img9](./img/img9.png)
